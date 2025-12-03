@@ -1,0 +1,118 @@
+#root {
+  max-width: 400px;
+  width: 100%;
+  margin: 0 auto;
+  padding: 1rem;
+  text-align: center;
+}
+
+.card {
+  padding: 20px;
+  background-color: #74927e2b;
+  border-radius: 10px;
+  margin: 20px 0;
+}
+
+.logo {
+  height: 6em;
+  padding: 1.5em;
+  will-change: filter;
+  transition: filter 300ms;
+}
+.logo:hover {
+  filter: drop-shadow(0 0 2em #646cffaa);
+}
+.logo.react:hover {
+  filter: drop-shadow(0 0 2em #61dafbaa);
+}
+
+@keyframes logo-spin {
+  from {
+    transform: rotate(0deg);
+  }
+  to {
+    transform: rotate(360deg);
+  }
+}
+
+@media (prefers-reduced-motion: no-preference) {
+  a:nth-of-type(2) .logo {
+    animation: logo-spin infinite 20s linear;
+  }
+}
+
+.read-the-docs {
+  color: #888;
+}
+
+hr {
+  margin: 20px 0;
+  border: none;
+}
+/* Input Fields */
+
+input {
+  border: none;
+}
+
+.label-wrapper {
+  width: 100%;
+  text-align: left;
+}
+
+.wrapper {
+  position:relative;
+}
+
+.wrapper input {
+  height: 50px;
+  box-sizing:border-box;
+  padding-left: 40px;
+  width: 100%;
+  margin-bottom: 20px;
+}
+
+.wrapper .icon {
+  padding: 4px;
+  position: absolute;
+  box-sizing:border-box;
+  top:50%;
+  transform: translateY(-30px);
+}
+
+.amount-wrapper {
+  position:relative;
+}
+
+.amount-wrapper input {
+  height: 50px;
+  box-sizing:border-box;
+  padding-left: 10px;
+  width: 100%;
+  font-weight: bold;
+}
+
+.amount-wrapper .deposit-address {
+  box-sizing: border-box;
+  width: 100%;
+  font-weight: bold;
+  border: none;
+  color: fieldtext;
+  background-color: field;
+  word-break: break-all;
+  padding: 10px;
+}
+
+.amount-wrapper .btc-text,
+.amount-wrapper .usdt-text {
+  height: 1.5rem;
+  width: 1.5rem;
+  padding: 4px;
+  position: absolute;
+  box-sizing:border-box;
+  top:50%;
+  right: 40px;
+  transform: translateY(-17px);
+  font-weight: bold;
+}
+

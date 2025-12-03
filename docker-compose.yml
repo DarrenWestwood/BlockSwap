@@ -1,0 +1,81 @@
+services:
+  # ----------------------------------------------------------
+  # Chainflip Light RPC Broker Node
+  # ----------------------------------------------------------
+  broker:  
+    image: chainfliplabs/chainflip-node:berghain-1.12.0
+    pull_policy: always
+    container_name: chainflip-broker
+    stop_grace_period: 5s
+    stop_signal: SIGINT
+    restart: unless-stopped
+    user: root
+    ports:
+      - "127.0.0.1:9944:9944"
+    volumes:
+      - ./chainflip/keys/broker:/etc/chainflip-keys/broker
+      - ./chainflip/chaindata:/etc/chainflip/chaindata
+    entrypoint: /bin/sh
+    command: >
+      -c '
+      /usr/local/bin/chainflip-node key insert \
+        --chain=/etc/chainflip/berghain.chainspec.json \
+        --base-path=/etc/chainflip/chaindata \
+        --suri=0x$$(cat /etc/chainflip-keys/broker/signing_key_file) \
+        --key-type=brok \
+        --scheme=sr25519 &&
+      /usr/local/bin/chainflip-node \
+        --base-path=/etc/chainflip/chaindata \
+        --chain=/etc/chainflip/berghain.chainspec.json \
+        --max-runtime-instances=32 \
+        --rpc-cors=all \
+        --rpc-methods=safe \
+        --rpc-external \
+        --sync=light-rpc \
+        --blocks-pruning=128 \
+        --state-pruning=128 \
+        --disable-log-color \
+        --log info,grandpa=error,runtime::grandpa=off,aura=error,babe=error,txpool::api=error
+      '
+    networks:
+      - chainflip
+    profiles:
+      - broker
+  # ----------------------------------------------------------
+  # NodeJS Backend
+  # ----------------------------------------------------------
+  backend:
+    build:
+      context: ./backend
+      dockerfile: Dockerfile
+    environment:
+      BROKER_URL: "http://broker:9944"
+      CHAINFLIP_NETWORK: "mainnet"
+      PORT: "3001"
+    ports:
+      - "3001:3001"
+    depends_on:
+      - broker
+    networks:
+      - chainflip
+    profiles:
+      - backend
+  # ----------------------------------------------------------
+  # ReactJS Frontend
+  # ----------------------------------------------------------
+  frontend:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+    ports:
+      - "3000:80"
+    depends_on:
+      - backend
+    networks:
+      - chainflip
+    profiles:
+      - frontend
+
+networks:
+  chainflip:
+    driver: bridge

@@ -8,6 +8,7 @@ services:
     container_name: chainflip-broker
     stop_grace_period: 5s
     stop_signal: SIGINT
+    platform: linux/amd64
     restart: unless-stopped
     user: root
     ports:

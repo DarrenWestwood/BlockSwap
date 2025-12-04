@@ -72,7 +72,7 @@ function Home() {
   }
 
   async function redirectToSwap(depositChannelId) {
-    navigate('/swap/'+depositChannelId+'?amount='+quote.amount); // Redirect to swap page
+    navigate('/swap/'+depositChannelId+'?amount='+encodeURIComponent((quote.depositAmount))); // Redirect to swap page
   }
 
   const handleAmountChange = (event) => {

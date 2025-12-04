@@ -13,6 +13,20 @@
   margin: 20px 0;
 }
 
+.logo-container {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+}
+
+.logo-container h1 {
+  font-weight: 100;
+}
+
+.logo-container h1 span {
+  font-weight: 400;
+}
+
 .logo {
   height: 6em;
   padding: 1.5em;
